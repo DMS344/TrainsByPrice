@@ -18,7 +18,7 @@
       overflow: hidden; background: #0c1424; 
     }
 
-    /* ---------------- LANDING MODAL ---------------- */
+    /* LANDING SCREEN */
     #landing-screen {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; height: 100dvh;
       background: #0f172a; z-index: 9999;
@@ -34,7 +34,6 @@
     .landing-title-row h1 { font-size: 1.45rem; font-weight: 800; color: #0c192c; letter-spacing: -0.01em; }
     .landing-subtitle { color: #475569; font-size: 0.9rem; line-height: 1.4; margin-bottom: 20px; }
 
-    /* Typeahead Search Container */
     .typeahead-container {
       position: relative; width: 100%; text-align: left; margin-bottom: 16px;
     }
@@ -65,7 +64,7 @@
     .landing-btn:hover { background: #002244; }
     .landing-footer { text-align: center; color: #94a3b8; font-size: 0.8rem; line-height: 1.5; max-width: 600px; }
 
-    /* ---------------- APP MAIN LAYOUT ---------------- */
+    /* APP LAYOUT */
     #app-container { display: flex; width: 100vw; height: 100vh; height: 100dvh; position: relative; }
     
     .sidebar {
@@ -74,7 +73,6 @@
       z-index: 1000; border-right: 1px solid #cbd5e1;
     }
 
-    /* Mobile Sheet Drag Handle Bar */
     .drag-handle-bar {
       display: none; width: 100%; height: 28px; background: #061833;
       align-items: center; justify-content: center; cursor: grab; user-select: none;
@@ -91,7 +89,6 @@
     .gear-icon { font-size: 1.25rem; color: #94a3b8; cursor: pointer; transition: color 0.15s; }
     .gear-icon:hover { color: #ffffff; }
 
-    /* Quick Layout Resizer for Mobile */
     .mobile-height-presets {
       display: none; grid-template-columns: 1fr 1fr 1fr; gap: 4px; margin-bottom: 4px;
     }
@@ -110,7 +107,6 @@
     }
     .pill-btn.active { background: #2563eb; color: #ffffff; border-color: #2563eb; }
 
-    /* Sidebar Origin Search Bar */
     .origin-selection-block { margin-top: 2px; position: relative; }
     .origin-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.05em; color: #94a3b8; margin-bottom: 4px; font-weight: 800; display: block; }
     .sidebar-typeahead-input {
@@ -170,7 +166,7 @@
     #map { flex: 1; height: 100%; background: #e2e8f0; z-index: 1; }
     .custom-pin { display: flex; align-items: center; justify-content: center; }
 
-    /* ---------------- SLEEK ATTRIBUTION FOOTNOTE ---------------- */
+    /* ATTRIBUTION FOOTNOTE */
     .leaflet-container .leaflet-control-attribution {
       background: rgba(255, 255, 255, 0.75) !important;
       backdrop-filter: blur(6px);
@@ -190,19 +186,11 @@
       text-decoration: none !important;
       font-weight: 700 !important;
     }
-    .leaflet-control-attribution a:hover {
-      text-decoration: underline !important;
-    }
-    .attr-dot {
-      color: #94a3b8;
-      margin: 0 4px;
-      font-weight: 400;
-    }
+    .leaflet-control-attribution a:hover { text-decoration: underline !important; }
+    .attr-dot { color: #94a3b8; margin: 0 4px; font-weight: 400; }
 
-    /* ---------------- MOBILE DRAGGABLE DRAWER ---------------- */
     @media (max-width: 768px) {
       #app-container { flex-direction: column-reverse; }
-      
       .drag-handle-bar { display: flex; }
       .mobile-height-presets { display: grid; }
 
@@ -216,10 +204,8 @@
       }
       .sidebar-header { padding: 8px 12px; gap: 6px; }
       .station-row { padding: 10px 14px; }
-      
       .leaflet-container .leaflet-control-attribution {
-        font-size: 0.62rem !important;
-        padding: 2px 6px !important;
+        font-size: 0.62rem !important; padding: 2px 6px !important;
       }
     }
 
@@ -378,7 +364,6 @@
 
     stations.forEach(s => { stationByCrs[s.crs] = s; });
 
-    // ---------------- TYPEAHEAD SEARCH COMPONENT ----------------
     function setupTypeahead(inputId, dropdownId, onSelect) {
       const input = document.getElementById(inputId);
       const dropdown = document.getElementById(dropdownId);
@@ -435,16 +420,10 @@
     });
     document.getElementById('sidebar-origin-input').value = "London Liverpool Street (LST)";
 
-    // ---------------- MAP INITIALIZATION & FOOTNOTE ----------------
     const defaultLat = stationByCrs["LST"] ? stationByCrs["LST"].lat : 51.5178;
     const defaultLng = stationByCrs["LST"] ? stationByCrs["LST"].long : -0.0823;
     
-    // Explicit attribution with Leaflet, OpenStreetMap, and TrainsByPrice
-    const map = L.map('map', { 
-      zoomControl: false,
-      attributionControl: true
-    }).setView([defaultLat, defaultLng], 9);
-    
+    const map = L.map('map', { zoomControl: false, attributionControl: true }).setView([defaultLat, defaultLng], 9);
     L.control.zoom({ position: 'topleft' }).addTo(map);
 
     const sleekAttribution = '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a><span class="attr-dot">•</span>&copy; 2026 TrainsByPrice | DMS';
@@ -600,7 +579,7 @@
       loadOriginFares(currentOrigin);
     });
 
-    // ---------------- MOBILE BOTTOM DRAWER RESIZING ----------------
+    // MOBILE DRAWER
     const sidebar = document.getElementById('app-sidebar');
     const dragHandle = document.getElementById('drag-handle');
     let isDragging = false;
@@ -623,7 +602,6 @@
       isDragging = false;
     });
 
-    // Preset Snap Buttons
     document.getElementById('btn-snap-map').addEventListener('click', () => {
       sidebar.style.height = '80px';
       setActivePreset('btn-snap-map');
@@ -643,7 +621,6 @@
       });
     }
 
-    // Fare Type Buttons
     const btnSingle = document.getElementById('btn-single');
     const btnReturn = document.getElementById('btn-return');
     const btnStandard = document.getElementById('btn-standard');
@@ -677,7 +654,6 @@
       renderUI();
     });
 
-    // Sliders
     const sliderPriceMin = document.getElementById('slider-price-min');
     const sliderPriceMax = document.getElementById('slider-price-max');
 
@@ -694,7 +670,7 @@
     });
 
     sliderPriceMax.addEventListener('input', () => {
-      let vMin = parseFloat(sliderPriceMin.value);
+      let vMin = parseFloat(sliderPriceMax.value);
       let vMax = parseFloat(sliderPriceMax.value);
       if (vMax < vMin + 2) {
         vMax = vMin + 2;
@@ -712,7 +688,6 @@
       renderUI();
     });
 
-    // Settings Modal
     const modal = document.getElementById('settings-modal');
     document.getElementById('gear-btn').addEventListener('click', () => {
       modal.style.display = 'flex';
